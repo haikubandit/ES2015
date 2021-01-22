@@ -42,14 +42,16 @@ hasDuplicate([ 1, 5, -1, 4 ]); // false
 // where the keys are numbers and the values are the count of the vowels in the string.
 
 const vowelCount = str => {
-	const vowels = new Set('aeiou');
-	let vowelMap = new Map();
+	const vowels = new Set('aeiouAEIOU');
+	const vowelMap = new Map();
 	for (const letter of str) {
-		if (vowels.has(letter)) {
-			// vowelMap.set(letter, 1);
-			vowelMap.set(letter, vowelMap.get(letter) + 1);
-		} else {
-			vowelMap.set(letter, 1);
+		const lowered = letter.toLowerCase();
+		if (vowels.has(lowered)) {
+			if (vowelMap.has(lowered)) {
+				vowelMap.set(lowered, vowelMap.get(lowered) + 1);
+			} else {
+				vowelMap.set(lowered, 1);
+			}
 		}
 	}
 	// [ ...str ].filter(letter => vowels.has(letter)).forEach(letter => {
